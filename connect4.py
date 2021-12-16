@@ -5,13 +5,7 @@ ROW_LENGTH,COLUMN_LENGTH=(7,7)
 COLORS={"R":"red","G":"green"}
 PLAYERS={"R":'player 1',"G":'player 2'}
 
-<<<<<<< Updated upstream
-size = width,height = 1028,720
-speed=[3,3]
-black=0,0,0
-=======
 Board=np.full((7,7),"0")
->>>>>>> Stashed changes
 
 def fillRed(pos):
     arr=Board[pos][::-1]
