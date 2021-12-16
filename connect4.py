@@ -1,27 +1,85 @@
 import pygame
+import numpy as np
 
-pygame.init()
+ROW_LENGTH,COLUMN_LENGTH=(7,7)
+COLORS={"R":"red","G":"green"}
+PLAYERS={"R":'player 1',"G":'player 2'}
 
+<<<<<<< Updated upstream
 size = width,height = 1028,720
 speed=[3,3]
 black=0,0,0
+=======
+Board=np.full((7,7),"0")
+>>>>>>> Stashed changes
 
-screen = pygame.display.set_mode(size)
-ball = pygame.image.load('ball.png')
-ballrect=ball.get_rect()
+def fillRed(pos):
+    arr=Board[pos][::-1]
+    for index,i in enumerate(arr):
+        if(i=="0"):
+            Board[pos,6-index]="R"
+            return
+        
+    print("illegal move")
 
-while 1:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT: sys.exit()
+def fillGreen(pos):
+    arr=Board[pos][::-1]
+    for index,i in enumerate(arr):
+        if(i=="0"):
+            Board[pos,6-index]="G"
+            return
+    print("illegal move")
 
-    ballrect=ballrect.move(speed)
+def printBoard():
+    board = np.transpose(Board)
+    for row,i in enumerate(board):
+        for column,j in enumerate(board[row]):
+            print(f"  {board[row,column]}  ",end="")
+        print("\n",end="")
 
-    if ballrect.left<0 or ballrect.right > width:
-        speed[0] = -speed[0]
 
-    if ballrect.top < 0 or ballrect.bottom>height:
-        speed[1]=-speed[1]
+def checkBoard():
+    for row in Board:
+        r="".join(row)
+        if("RRRR" in r):
+            return "R"
+        elif("GGGG" in r):
+            return "G"
 
-    screen.fill(black)
-    screen.blit(ball,ballrect)
-    pygame.display.flip()
+    for row in np.transpose(Board):
+        r="".join(row)
+        if("RRRR" in r):
+            return "R"
+        elif("GGGG" in r):
+            return "G"
+
+
+    return "0"
+
+
+player="R"
+
+while(1):
+    
+    p=int(input(f"enter position (1-7) {PLAYERS[player]} : "))
+    if player=="R":
+        fillRed(p-1)
+    else:
+        fillGreen(p-1)
+
+    if checkBoard()=="R":
+        print("Red wins")
+        break
+    elif checkBoard()=="G":
+        print("Green wins")
+        break
+
+    if player == "R":
+        player="G"
+    else:
+        player="R"
+
+    printBoard()
+
+    
+
