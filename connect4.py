@@ -2,6 +2,7 @@ import pygame
 
 pygame.init()
 
+name="abc"
 size = width,height = 1028,720
 speed=[3,3]
 black=0,0,0
